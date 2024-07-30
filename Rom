@@ -1,0 +1,78 @@
+module rom (
+    input [3:0] addr,
+    output reg [7:0] data
+);
+    // Define ROM contents
+    reg [7:0] rom_data [15:0];
+    
+    initial begin
+        rom_data[0] = 8'h00;
+        rom_data[1] = 8'h11;
+        rom_data[2] = 8'h22;
+        rom_data[3] = 8'h33;
+        rom_data[4] = 8'h44;
+        rom_data[5] = 8'h55;
+        rom_data[6] = 8'h66;
+        rom_data[7] = 8'h77;
+        rom_data[8] = 8'h88;
+        rom_data[9] = 8'h99;
+        rom_data[10] = 8'hAA;
+        rom_data[11] = 8'hBB;
+        rom_data[12] = 8'hCC;
+        rom_data[13] = 8'hDD;
+        rom_data[14] = 8'hEE;
+        rom_data[15] = 8'hFF;
+    end
+    
+    always @(*) begin
+        data = rom_data[addr];
+    end
+endmodule
+
+
+//Test Bench
+
+// Code your testbench here
+// or browse Examples
+
+  
+  module tb_rom;
+    reg [3:0] addr;
+    wire [7:0] data;
+    
+    // Instantiate the ROM module
+    rom rom_inst (
+        .addr(addr),
+        .data(data)
+    );
+    
+    // Monitor changes in signals
+    initial begin
+      $monitor("At time %0t: addr = %h, data = %h", $time, addr, data);
+    end
+    
+    // Test sequence
+    initial begin
+        // Test different addresses
+        addr = 4'h0; #10;
+        addr = 4'h1; #10;
+        addr = 4'h2; #10;
+        addr = 4'h3; #10;
+        addr = 4'h4; #10;
+        addr = 4'h5; #10;
+        addr = 4'h6; #10;
+        addr = 4'h7; #10;
+        addr = 4'h8; #10;
+        addr = 4'h9; #10;
+        addr = 4'hA; #10;
+        addr = 4'hB; #10;
+        addr = 4'hC; #10;
+        addr = 4'hD; #10;
+        addr = 4'hE; #10;
+        addr = 4'hF; #10;
+        
+        // End simulation
+        #10;
+        $finish;
+    end
+endmodule
